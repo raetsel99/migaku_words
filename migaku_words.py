@@ -4,6 +4,7 @@ import os
 import argparse
 from pathlib import Path
 import sys
+from xmlrpc.client import boolean
 
 # quick and dirty script to update the words being learned in missingPackagesAndExecutables
 
@@ -11,13 +12,15 @@ def read_json_in(file_in):
     fileIn = open(file_in, 'r')
     return json.loads(fileIn.read())
 
-def import_csv(json_array, file_in, word_status):
+def import_csv(json_array, file_in, word_status, debug_flag):
     # dummy_data=["test1",2]
     
     with open(file_in, newline='') as csvfile:
         word_reader = csv.reader(csvfile)
         for row in word_reader:
             row.append(word_status)
+            if debug_flag:
+                print(f"Adding : {row}")
             json_array.append(row)
      
     return json_array
@@ -30,8 +33,11 @@ if __name__ == '__main__':
     parser.add_argument('-c','--csv_file',type=str,help='Source file of csv file of words to add',required=True)
     parser.add_argument('-j','--json_output',type=str,help='Destination file for output',required=True)
     parser.add_argument('-s','--status',type=int,default=2,help='Status for all words in CSV file,1=learning, 2=known')
-    args = parser.parse_args()
+    parser.add_argument('-d','--debug',action='store_true',help='Show before and after and words being added')
 
+    args = parser.parse_args()
+    debug_flag = args.debug
+    
     # start with a blank array
     migaku_array =[]
     
@@ -40,7 +46,8 @@ if __name__ == '__main__':
         agnostic_json_in = Path(args.json_input)
         if os.path.exists(agnostic_json_in):
             migaku_array = read_json_in(agnostic_json_in)
-            print(f"json is {migaku_array}")
+            if debug_flag:
+                print(f"json is {migaku_array}")
         else:
             print(f"ERROR E001 could not find file {agnostic_json_in}")
             sys.exit(1)
@@ -55,12 +62,13 @@ if __name__ == '__main__':
 
     agnostic_csv_in = Path(args.csv_file)
     if os.path.exists(agnostic_csv_in):
-        migaku_array = import_csv(migaku_array,agnostic_csv_in,word_status)
+        migaku_array = import_csv(migaku_array,agnostic_csv_in,word_status,debug_flag)
     else:
         print(f"ERROR E003 could not find file {agnostic_csv_in}")
         sys.exit(3)
 
-    print(f"migaku array is now: {migaku_array}")
+    if debug_flag:
+        print(f"migaku array is now: {migaku_array}")
 
     agnostic_json_out=Path(args.json_output)
     with open(agnostic_json_out, "w") as write_file:

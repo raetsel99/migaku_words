@@ -15,12 +15,21 @@ Data written to Migaku_import.json. Be sure to backup Migaku before importing
 ```
   -h, --help            show this help message and exit
   -i JSON_INPUT, --json_input JSON_INPUT
-                        Option source file of existing backup to append to
+                        Optional source file of existing backup to append to
+
   -c CSV_FILE, --csv_file CSV_FILE
                         Source file of csv file of words to add
+
   -j JSON_OUTPUT, --json_output JSON_OUTPUT
                         Destination file for output
+
   -s STATUS, --status STATUS
                         Status for all words in CSV file,1=learning, 2=known
+                        
   -d, --debug           Show before and after and words being added
 ```
+
+## csv file structure
+
+The input "csv" file should be a simple list of words. They can be enclosed in quotes or not
+

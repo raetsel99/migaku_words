@@ -1,8 +1,10 @@
 # migaku_words
 
-This is a quick an dirty script to allow you to import your known or learning workds into the Migaku dictionary from a source other than anki.
+This is a quick and dirty script to allow you to import your known or learning workds into the Migaku dictionary from a source other than anki.
 
-Once you have generated your file use the Import from Backup option in the Migaku Words List screen. (Be sure to take a backup before you run the import just in case)
+Once you have generated your file use the Import from Backup option in the Migaku Words Browser screen *not* the Word List screen. (Be sure to take a backup before you run the import just in case)
+
+Note this has only been tested with French word data.
 
 ## usage example
 
@@ -25,7 +27,7 @@ Data written to Migaku_import.json. Be sure to backup Migaku before importing
 
   -s STATUS, --status STATUS
                         Status for all words in CSV file,1=learning, 2=known
-                        
+
   -d, --debug           Show before and after and words being added
 ```
 

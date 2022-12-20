@@ -6,6 +6,8 @@ Once you have generated your file use the Import from Backup option in the Migak
 
 Note this has only been tested with French word data.
 
+[Blog for more detail](https://raetsel.wordpress.com/2022/12/20/how-to-import-your-known-words-into-the-migaku-dictionary/)
+
 ## usage example
 
 ```
